@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Venitor – KI-Telefonagenten für Unternehmen</title>
+<meta name="description" content="Venitor entwickelt individuelle KI-Telefonagenten, die Anrufe annehmen, Fragen beantworten und Termine vereinbaren – rund um die Uhr.">
+<meta name="theme-color" content="#0a0f1a">
+<meta property="og:title" content="Venitor – KI-Telefonagenten für Unternehmen">
+<meta property="og:description" content="Individuelle KI-Telefonagenten, Websites und Marketing für Unternehmen.">
+<meta property="og:image" content="assets/venitor-orb-960.webp">
+<link rel="icon" type="image/webp" href="assets/venitor-orb-128.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=Instrument+Sans:wght@400;500;600&amp;family=Schibsted+Grotesk:wght@600;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#0a0f1a}
+.vn{font-family:"Instrument Sans","Segoe UI",system-ui,sans-serif;font-size:16px;line-height:25px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.vn *,.vn *::before,.vn *::after{box-sizing:border-box}
+.vn img,.vn svg{display:block}
+
+/* Themes */
+.t-light{--bg:#f4f6fa;--surface:#ffffff;--surface-2:#e8eef7;--line:#d6dfeb;--line-strong:#a9b8cf;--fg:#0c1525;--muted:#4c5b73;--signal:#0b65d0;--signal-strong:#0852ab;--signal-soft:rgba(11,101,208,.10);--signal-text:#0a5cc0;--signal-ink:#ffffff;--live:#c27400;--glow:rgba(11,101,208,.12);--shadow:0 24px 60px rgba(12,21,37,.12)}
+.t-dark,.all-dark .t-light{--bg:#0a0f1a;--surface:#101827;--surface-2:#16213a;--line:#222f48;--line-strong:#34466a;--fg:#e9eef7;--muted:#95a4bd;--signal:#3b9bff;--signal-strong:#66b2ff;--signal-soft:rgba(59,155,255,.14);--signal-text:#7cbcff;--signal-ink:#05111f;--live:#ffb547;--glow:rgba(59,155,255,.22);--shadow:0 24px 60px rgba(0,0,0,.45)}
+.t-dark,.t-light{background:var(--bg);color:var(--fg)}
+.all-dark .t-light{border-top:1px solid var(--line)}
+
+/* Layout */
+.wrap{width:100%;max-width:1200px;margin:0 auto;padding-inline:24px}
+.sec{padding-block:112px;position:relative}
+.sec-head{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:56px;max-width:760px}
+.sec-head.center{align-items:center;text-align:center;margin-inline:auto}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--signal-text);margin:0}
+.h2{font-family:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;font-size:40px;line-height:44px;font-weight:700;letter-spacing:-.015em;margin:0;text-wrap:balance}
+.lead{font-size:19px;line-height:30px;color:var(--muted);margin:0;max-width:62ch;text-wrap:pretty}
+.ic{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;background:#3b9bff;color:#05111f;padding:10px 16px;border-radius:999px;font-weight:600;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;font-family:inherit;font-weight:600;font-size:16px;line-height:20px;text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:transform .2s ease,background-color .2s ease,border-color .2s ease,box-shadow .25s ease,color .2s ease}
+.btn .ic{width:18px;height:18px;transition:transform .2s ease}
+.btn:hover .arrow{transform:translateX(3px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn-primary{background:var(--signal);color:var(--signal-ink);box-shadow:0 10px 28px -12px var(--signal)}
+.btn-primary:hover{background:var(--signal-strong);transform:translateY(-1px);box-shadow:0 16px 36px -12px var(--signal)}
+.btn-secondary{background:transparent;color:var(--fg);border-color:var(--line-strong)}
+.btn-secondary:hover{border-color:var(--fg);background:var(--surface-2)}
+.btn-ghost{color:var(--signal-text);padding:0 6px;min-height:44px}
+.btn-ghost:hover{color:var(--fg)}
+.btn-lg{min-height:56px;padding:0 30px;font-size:17px}
+.btn-onsignal{background:var(--signal-ink);color:var(--signal);box-shadow:0 12px 30px -12px rgba(5,17,31,.6)}
+.btn-onsignal:hover{transform:translateY(-1px);box-shadow:0 18px 40px -14px rgba(5,17,31,.7)}
+.vn a:focus-visible,.vn button:focus-visible,.vn summary:focus-visible,.vn input:focus-visible{outline:2px solid var(--signal-text);outline-offset:3px}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+
+/* Header */
+.hdr{position:sticky;top:0;z-index:50;background:rgba(10,15,26,.8);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--line)}
+.hdr-in{display:flex;align-items:center;justify-content:space-between;gap:24px;height:72px}
+.brand{display:inline-flex;align-items:center;gap:10px;font-family:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--fg);text-decoration:none;min-height:44px}
+.brand-dot{width:28px;height:28px;border-radius:999px;background:var(--signal);color:var(--signal-ink);display:grid;place-items:center}
+.brand-dot .ic{width:16px;height:16px;stroke-width:2.25}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none;margin:0;padding:0}
+.nav-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;color:var(--muted);text-decoration:none;font-weight:500;font-size:15px;transition:color .2s,background-color .2s}
+.nav-links a:hover{color:var(--fg);background:var(--surface-2)}
+.nav-links a[aria-current="page"]{color:var(--fg)}
+.burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line-strong);background:transparent;color:var(--fg);align-items:center;justify-content:center;cursor:pointer;transition:background-color .2s}
+.burger:hover{background:var(--surface-2)}
+.mnav{border-top:1px solid var(--line);padding:8px 0 24px;animation:drop .28s cubic-bezier(.2,.7,.2,1)}
+.mnav ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.mnav .ml{display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none;font-size:18px;font-weight:500}
+.mnav .ml .ic{color:var(--muted);width:18px;height:18px}
+.mnav .btn{width:100%;margin-top:20px}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;padding-top:96px}
+.hero::before{content:"";position:absolute;left:50%;top:-320px;width:1400px;height:900px;transform:translateX(-50%);background:radial-gradient(closest-side,var(--glow),transparent);pointer-events:none}
+.hero-grid{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr));gap:64px;align-items:center}
+.hero-copy{display:flex;flex-direction:column;align-items:flex-start;gap:28px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--fg)}
+.eyebrow .dot{width:24px;height:24px;border-radius:999px;background:var(--signal-soft);color:var(--signal-text);display:grid;place-items:center}
+.eyebrow .dot .ic{width:14px;height:14px;stroke-width:2.25}
+.hero h1{font-family:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;font-weight:800;font-size:60px;line-height:62px;letter-spacing:-.02em;margin:0;text-wrap:balance;max-width:14ch}
+.hero h1 .hl{color:var(--signal-text)}
+.hero .lead{max-width:52ch}
+.hero-ctas{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+
+/* Hero visual: call */
+.call-wrap{position:relative;padding:28px 36px 44px 36px}
+.call{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.call-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line)}
+.caller{display:flex;align-items:center;gap:12px;min-width:0}
+.av{width:44px;height:44px;border-radius:10px;background:var(--signal-soft);color:var(--signal-text);display:grid;place-items:center;flex:none}
+.lbl{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.caller-name{font-weight:600;font-size:15px;line-height:22px}
+.live{display:inline-flex;align-items:center;gap:8px;padding:5px 10px;border-radius:999px;border:1px solid var(--line-strong);font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:16px;letter-spacing:.06em;color:var(--fg);flex:none}
+.live i{width:8px;height:8px;border-radius:999px;background:var(--live);animation:pulse 1.8s ease-out infinite}
+.wave{display:flex;align-items:center;gap:3px;height:64px;padding:0 20px;margin-top:18px}
+.wave span{flex:1;min-width:2px;border-radius:2px;background:var(--signal);opacity:.9;transform-origin:center;animation:wv 1.1s ease-in-out infinite alternate}
+.wave-meta{display:flex;justify-content:space-between;padding:8px 20px 0}
+.tx{display:flex;flex-direction:column;gap:12px;padding:18px 20px 22px}
+.msg{max-width:86%;padding:12px 14px;border-radius:14px;font-size:15px;line-height:22px;animation:pop .5s cubic-bezier(.2,.7,.2,1) both}
+.msg .lbl{display:block;font-size:11px;margin-bottom:4px}
+.msg-c{align-self:flex-start;background:var(--surface-2);border-top-left-radius:4px}
+.msg-a{align-self:flex-end;background:var(--signal-soft);border:1px solid rgba(59,155,255,.28);border-top-right-radius:4px}
+.msg-a .lbl{color:var(--signal-text)}
+.typing{align-self:flex-end;display:inline-flex;align-items:center;gap:5px;padding:14px 16px;border-radius:14px;border-top-right-radius:4px;background:var(--signal-soft);animation:pop .5s cubic-bezier(.2,.7,.2,1) both;animation-delay:2.6s}
+.typing i{width:6px;height:6px;border-radius:999px;background:var(--signal-text);animation:blink 1.2s ease-in-out infinite}
+.typing i:nth-child(2){animation-delay:.15s}
+.typing i:nth-child(3){animation-delay:.3s}
+.chip{position:absolute;display:flex;align-items:center;gap:12px;padding:12px 16px 12px 12px;background:var(--surface);border:1px solid var(--line-strong);border-radius:14px;box-shadow:var(--shadow);font-size:14px;line-height:20px;z-index:2}
+.chip .av{width:36px;height:36px;border-radius:9px}
+.chip .av .ic{width:18px;height:18px}
+.chip strong{display:block;font-weight:600}
+.chip span{color:var(--muted)}
+.chip-cal{left:0;bottom:8px;animation:chipIn .6s cubic-bezier(.2,.7,.2,1) 3.1s both,float 7s ease-in-out 3.7s infinite}
+.chip-crm{right:0;top:132px;animation:chipIn .6s cubic-bezier(.2,.7,.2,1) 1.9s both,float 8s ease-in-out 2.5s infinite}
+
+/* Logo-Orb (animiert aus dem Logo-Bild) */
+.call{z-index:1;background:rgba(16,24,39,.84);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.chip-crm{top:452px}
+.orb{position:relative;width:min(460px,92%);aspect-ratio:1/1;margin:-20px auto -170px;pointer-events:none;animation:orbIn 1.4s cubic-bezier(.2,.7,.2,1) .1s both}
+.orb-stage{position:absolute;inset:0;animation:hueDrift 14s ease-in-out infinite alternate}
+.orb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:screen}
+.orb-base{-webkit-mask-image:radial-gradient(circle closest-side,#000 82%,transparent 100%);mask-image:radial-gradient(circle closest-side,#000 82%,transparent 100%);animation:breathe 6s ease-in-out infinite}
+.orb-swirl{-webkit-mask-image:radial-gradient(circle closest-side,transparent 28%,#000 44%,#000 70%,transparent 80%);mask-image:radial-gradient(circle closest-side,transparent 28%,#000 44%,#000 70%,transparent 80%)}
+.orb-swirl-a{opacity:.55;animation:spin 46s linear infinite}
+.orb-swirl-b{opacity:.38;transform:scaleX(-1);animation:spinRev 68s linear infinite}
+.orb-halo{position:absolute;inset:6%;border-radius:999px;box-shadow:0 0 90px 20px rgba(59,155,255,.35),0 0 180px 60px rgba(70,90,255,.18);animation:halo 6s ease-in-out infinite}
+.orb-core{position:absolute;inset:32%;border-radius:999px;background:radial-gradient(closest-side,rgba(220,240,255,.55),rgba(120,190,255,.18) 55%,transparent);mix-blend-mode:screen;animation:core 3.2s ease-in-out infinite}
+.orb-shine{position:absolute;inset:36%;border-radius:999px;overflow:hidden;mix-blend-mode:screen}
+.orb-shine::before{content:"";position:absolute;top:-30%;bottom:-30%;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);animation:shine 5.5s ease-in-out 2s infinite}
+.orb-flare{position:absolute;left:-30%;right:-30%;top:50%;height:2px;margin-top:-1px;background:radial-gradient(closest-side,rgba(150,205,255,.9),rgba(59,155,255,.25) 60%,transparent);mix-blend-mode:screen;animation:flare 6s ease-in-out infinite}
+.orb-p{position:absolute;width:4px;height:4px;border-radius:999px;background:#bfe0ff;box-shadow:0 0 10px 2px rgba(124,188,255,.8);opacity:0;animation:rise 7s ease-in-out infinite}
+.orb-p:nth-of-type(1){left:18%;top:62%;animation-delay:0s}
+.orb-p:nth-of-type(2){left:78%;top:30%;animation-delay:1.2s;width:3px;height:3px}
+.orb-p:nth-of-type(3){left:30%;top:22%;animation-delay:2.6s}
+.orb-p:nth-of-type(4){left:84%;top:66%;animation-delay:3.4s;width:3px;height:3px}
+.orb-p:nth-of-type(5){left:12%;top:40%;animation-delay:4.6s;width:3px;height:3px}
+.orb-p:nth-of-type(6){left:62%;top:84%;animation-delay:5.5s}
+@keyframes orbIn{from{opacity:0;transform:scale(.82);filter:blur(12px)}to{opacity:1;transform:none;filter:none}}
+@keyframes hueDrift{from{filter:hue-rotate(-10deg) saturate(1)}to{filter:hue-rotate(14deg) saturate(1.15)}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinRev{from{transform:scaleX(-1) rotate(0deg)}to{transform:scaleX(-1) rotate(-360deg)}}
+@keyframes halo{0%,100%{opacity:.55;transform:scale(.97)}50%{opacity:1;transform:scale(1.03)}}
+@keyframes core{0%,100%{opacity:.35;transform:scale(.94)}50%{opacity:.9;transform:scale(1.04)}}
+@keyframes shine{0%{left:-60%}35%,100%{left:130%}}
+@keyframes flare{0%,100%{opacity:.35;transform:scaleX(.7)}50%{opacity:1;transform:scaleX(1)}}
+@keyframes rise{0%{opacity:0;transform:translateY(12px)}20%{opacity:1}80%{opacity:.8}100%{opacity:0;transform:translateY(-48px)}}
+
+/* Logo in Navigation und Footer */
+.brand-orb{position:relative;width:36px;height:36px;border-radius:999px;flex:none;animation:navGlow 4s ease-in-out infinite}
+.brand-orb img{width:100%;height:100%;border-radius:999px;object-fit:cover;animation:logoBoot .9s cubic-bezier(.2,.7,.2,1) both,hueDrift 14s ease-in-out infinite alternate;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.brand:hover .brand-orb img{transform:scale(1.1) rotate(-8deg)}
+@keyframes navGlow{0%,100%{box-shadow:0 0 10px 1px rgba(59,155,255,.35)}50%{box-shadow:0 0 18px 4px rgba(59,155,255,.6)}}
+@keyframes logoBoot{from{opacity:0;transform:scale(.5) rotate(-40deg);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@media (max-width: 640px){
+  .orb{width:min(320px,86%);margin:0 auto -110px}
+  .chip-crm{top:auto}
+}
+
+/* Stats */
+.stats{position:relative;margin-top:96px;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}
+.stat{display:flex;align-items:baseline;gap:16px;padding:36px 32px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0;padding-left:0}
+.stat-n{font-family:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;font-weight:800;font-size:48px;line-height:52px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat-l{color:var(--muted);font-size:17px}
+
+/* Cards */
+.cards{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.cards-2{grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr))}
+.card{position:relative;display:flex;flex-direction:column;gap:12px;padding:28px;background:var(--surface);border:1px solid var(--line);border-radius:16px;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .35s}
+.card:hover{transform:translateY(-4px);border-color:var(--line-strong);box-shadow:var(--shadow)}
+.card h3{font-family:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;font-size:20px;line-height:26px;font-weight:600;margin:0}
+.card p{margin:0;color:var(--muted)}
+.tile{width:48px;height:48px;border-radius:10px;background:var(--signal-soft);color:var(--signal-text);display:grid;place-items:center;margin-bottom:12px;transition:transform .35s cubic-bezier(.2,.7,.2,1),background-color .3s,color .3s}
+.card:hover .tile{transform:scale(1.06) rotate(-3deg)}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:72px;align-items:start}
+.split .sec-head{position:sticky;top:120px;margin-bottom:0}
+
+/* Industries */
+.ind{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.ind-item{display:flex;align-items:flex-start;gap:20px;padding:32px 28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:background-color .3s}
+.ind-item:hover{background:var(--surface)}
+.ind-item:hover .tile{background:var(--signal);color:var(--signal-ink);transform:scale(1.04)}
+.ind-item .tile{margin:0;flex:none}
+.ind-item h3{font-family:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;font-size:20px;line-height:26px;font-weight:600;margin:0 0 6px}
+.ind-item p{margin:0;color:var(--muted)}
+
+/* Services */
+.svc{padding:32px}
+.svc-feat{border-color:var(--signal);background:linear-gradient(var(--surface),var(--surface)) padding-box}
+.svc-feat::before{content:"";position:absolute;inset:-1px;border-radius:16px;box-shadow:0 0 60px -16px var(--signal);pointer-events:none;opacity:.7}
+.tag{display:inline-flex;align-self:flex-start;align-items:center;padding:4px 10px;border-radius:6px;background:var(--signal-soft);color:var(--signal-text);font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:11px;line-height:16px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.svc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.sec-foot{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:48px}
+
+/* Process */
+.steps{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px}
+.steps::before,.steps::after{content:"";position:absolute;left:24px;right:24px;top:24px;height:1px;background:var(--line-strong)}
+.steps::after{background:var(--signal);transform-origin:left;transform:scaleX(1)}
+.step{position:relative;display:flex;flex-direction:column;gap:10px;padding-right:12px}
+.step-n{position:relative;z-index:1;width:48px;height:48px;border-radius:999px;background:var(--bg);border:1px solid var(--line-strong);display:grid;place-items:center;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:13px;font-weight:500;color:var(--signal-text);margin-bottom:14px;transition:background-color .3s,color .3s,border-color .3s,transform .3s}
+.step:hover .step-n{background:var(--signal);border-color:var(--signal);color:var(--signal-ink);transform:scale(1.08)}
+.step h3{font-family:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;font-size:20px;line-height:26px;font-weight:600;margin:0}
+.step p{margin:0;color:var(--muted)}
+
+/* CTA band */
+.band{position:relative;overflow:hidden;border-radius:24px;background:var(--signal);color:var(--signal-ink);padding:80px 48px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;box-shadow:0 40px 140px -30px rgba(59,155,255,.6)}
+.band::before{content:"";position:absolute;left:50%;top:-60%;width:120%;height:120%;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(255,255,255,.32),transparent);pointer-events:none}
+.band > *{position:relative}
+.band .h2{font-size:48px;line-height:52px;font-weight:800;letter-spacing:-.02em}
+.band p{margin:0;font-size:19px;line-height:30px;opacity:.85;max-width:48ch}
+.band .cta-row{justify-content:center;margin-top:12px}
+.band .btn-ghost{color:var(--signal-ink)}
+.band .btn-ghost:hover{color:var(--signal-ink);text-decoration:underline;text-underline-offset:4px}
+.band-wave{display:flex;align-items:center;gap:4px;height:28px;opacity:.55}
+.band-wave span{width:3px;border-radius:2px;background:var(--signal-ink);animation:wv 1.2s ease-in-out infinite alternate}
+
+/* FAQ */
+.faq-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:72px;align-items:start}
+.faq-aside{position:sticky;top:120px;display:flex;flex-direction:column;gap:16px}
+.faq-help{margin-top:16px;padding:24px;border-radius:16px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.faq-help strong{font-family:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;font-size:18px;line-height:24px;font-weight:600}
+.faq-help p{margin:0;color:var(--muted)}
+.faq-list{display:flex;flex-direction:column;gap:12px}
+.faq{background:var(--surface);border:1px solid var(--line);border-radius:14px;transition:border-color .25s,box-shadow .3s}
+.faq:hover{border-color:var(--line-strong)}
+.faq[open]{border-color:var(--line-strong);box-shadow:var(--shadow)}
+.faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;padding:18px 20px 18px 24px;cursor:pointer;font-family:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:18px;line-height:26px}
+.faq summary::-webkit-details-marker{display:none}
+.pm{flex:none;width:32px;height:32px;border-radius:999px;background:var(--surface-2);color:var(--fg);display:grid;place-items:center;transition:transform .35s cubic-bezier(.2,.7,.2,1),background-color .3s,color .3s}
+.pm .ic{width:16px;height:16px;stroke-width:2}
+.faq[open] .pm{transform:rotate(45deg);background:var(--signal);color:var(--signal-ink)}
+.faq-a{padding:0 24px 24px;color:var(--muted);max-width:66ch}
+.faq-a p{margin:0}
+.faq-a a{color:var(--signal-text);text-underline-offset:3px}
+.faq[open] .faq-a{animation:fadeDown .35s ease both}
+
+/* Demo */
+.demo{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:56px;align-items:center;padding:64px;border-radius:24px;border:1px solid var(--line-strong);background:var(--surface)}
+.demo::before{content:"";position:absolute;right:-200px;top:-260px;width:720px;height:620px;background:radial-gradient(closest-side,var(--glow),transparent);pointer-events:none}
+.demo > *{position:relative}
+.demo-copy{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:999px;background:var(--signal-soft);color:var(--signal-text);font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.badge .ic{width:18px;height:18px}
+.demo-steps{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.demo-steps li{display:flex;align-items:center;gap:12px;color:var(--fg)}
+.demo-steps .n{width:28px;height:28px;flex:none;border-radius:999px;border:1px solid var(--line-strong);display:grid;place-items:center;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12px;color:var(--signal-text)}
+.form{display:flex;flex-direction:column;gap:18px;padding:32px;border-radius:16px;background:var(--bg);border:1px solid var(--line);box-shadow:var(--shadow)}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font-size:14px;line-height:20px;font-weight:600}
+.field input{height:52px;width:100%;border-radius:10px;border:1px solid var(--line-strong);background:var(--surface);color:var(--fg);padding:0 16px;font:inherit;font-size:16px;transition:border-color .2s,box-shadow .2s}
+.field input::placeholder{color:var(--muted)}
+.field input:hover{border-color:var(--muted)}
+.field input:focus{outline:none;border-color:var(--signal);box-shadow:0 0 0 4px var(--signal-soft)}
+.btn-demo{width:100%;min-height:60px;font-size:18px;animation:ring 2.8s ease-out infinite}
+.form-note{margin:0;font-size:14px;line-height:21px;color:var(--muted);text-align:center}
+
+/* Footer */
+.ftr{padding:80px 0 32px;border-top:1px solid var(--line)}
+.ftr-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.6fr);gap:48px}
+.ftr-brand{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.ftr-brand p{margin:0;color:var(--muted);max-width:32ch}
+.ftr h2{margin:0 0 12px;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ftr ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.ftr ul a{display:inline-flex;align-items:center;min-height:40px;color:var(--fg);text-decoration:none;opacity:.88;transition:color .2s,opacity .2s}
+.ftr ul a:hover{color:var(--signal-text);opacity:1}
+.ftr-cta{padding:24px;border-radius:16px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;align-items:flex-start;gap:14px;align-self:start}
+.ftr-cta strong{font-family:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;font-size:18px;line-height:24px;font-weight:600}
+.ftr-bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:14px;line-height:21px;color:var(--muted)}
+
+/* Motion */
+.in{animation:fadeUp .8s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}.d5{animation-delay:.44s}
+.m1{animation-delay:.6s}.m2{animation-delay:1.3s}.m3{animation-delay:2.0s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@keyframes drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes chipIn{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -8px}}
+@keyframes wv{from{transform:scaleY(.3)}to{transform:scaleY(1)}}
+@keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,181,71,.55)}100%{box-shadow:0 0 0 10px rgba(255,181,71,0)}}
+@keyframes ring{0%{box-shadow:0 10px 28px -12px var(--signal),0 0 0 0 rgba(59,155,255,.45)}70%,100%{box-shadow:0 10px 28px -12px var(--signal),0 0 0 14px rgba(59,155,255,0)}}
+@keyframes rv{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion: no-preference){
+    .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 45%}
+    .cards > .rv:nth-child(2),.ind > .rv:nth-child(3n+2),.steps > .rv:nth-child(2){animation-range:entry 6% entry 52%}
+    .cards > .rv:nth-child(3),.ind > .rv:nth-child(3n),.steps > .rv:nth-child(3){animation-range:entry 12% entry 58%}
+    .cards > .rv:nth-child(4),.steps > .rv:nth-child(4){animation-range:entry 18% entry 64%}
+    .steps::after{animation:grow linear both;animation-timeline:view();animation-range:entry 30% cover 55%}
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  .vn *,.vn *::before,.vn *::after{animation:none !important;transition:none !important}
+}
+
+/* Responsive */
+@media (max-width: 1040px){
+  .nav-links,.hdr .nav-cta{display:none}
+  .burger{display:inline-flex}
+}
+@media (min-width: 1041px){ .mnav{display:none} }
+@media (max-width: 960px){
+  .split,.faq-grid,.demo{grid-template-columns:minmax(0,1fr)}
+  .split{gap:48px}
+  .split .sec-head,.faq-aside{position:static}
+  .ftr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ftr-brand,.ftr-cta{grid-column:1 / -1}
+}
+@media (max-width: 860px){
+  .steps{grid-template-columns:minmax(0,1fr);gap:36px}
+  .steps::before,.steps::after{left:24px;right:auto;top:24px;bottom:24px;width:1px;height:auto;transform-origin:top}
+  .steps::after{display:none}
+  .step{padding-left:76px;padding-right:0;min-height:48px}
+  .step-n{position:absolute;left:0;top:0;margin:0}
+  .stat{border-left:0;padding-left:0;border-top:1px solid var(--line)}
+  .stat:first-child{border-top:0}
+}
+@media (max-width: 640px){
+  .wrap{padding-inline:16px}
+  .sec{padding-block:72px}
+  .hero{padding-top:48px}
+  .hero h1{font-size:40px;line-height:44px}
+  .h2{font-size:30px;line-height:36px}
+  .band .h2{font-size:34px;line-height:40px}
+  .lead,.band p{font-size:17px;line-height:27px}
+  .sec-head{margin-bottom:40px}
+  .hero-ctas,.hero-ctas .cta-row{align-items:stretch;width:100%}
+  .hero-ctas .cta-row .btn{flex:1 1 100%}
+  .call-wrap{padding:0}
+  .chip{position:relative;left:auto;right:auto;top:auto;bottom:auto;margin-top:12px;animation:none}
+  .stats{margin-top:64px}
+  .stat{padding:24px 0}
+  .stat-n{font-size:40px;line-height:44px}
+  .card,.svc{padding:24px}
+  .ind-item{padding:24px 20px}
+  .band{padding:56px 24px;border-radius:20px}
+  .band .cta-row,.band .cta-row .btn{width:100%}
+  .faq summary{font-size:17px;padding:16px 16px 16px 20px}
+  .faq-a{padding:0 20px 20px}
+  .demo{padding:28px 20px;gap:32px}
+  .form{padding:20px}
+  .ftr-grid{grid-template-columns:minmax(0,1fr)}
+  .ftr-bottom{flex-direction:column}
+}
+
+.burger .ic-close{display:none}
+.burger[aria-expanded="true"] .ic-open{display:none}
+.burger[aria-expanded="true"] .ic-close{display:block}
+.mnav[hidden]{display:none}
+html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:88px}
+@media (max-width: 640px){ .hero h1{width:auto !important;height:auto !important;font-size:40px !important;line-height:1.08 !important} }
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+<div class="vn">
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="hdr t-dark">
+  <div class="wrap">
+    <div class="hdr-in">
+      <a class="brand" href="./" aria-label="Venitor – zur Startseite">
+        <span class="brand-orb"><img src="assets/venitor-orb-128.webp" alt="" width="36" height="36"></span>
+        Venitor
+      </a>
+      <nav aria-label="Hauptnavigation">
+        <ul class="nav-links">
+          <li><a href="./" aria-current="page">Home</a></li>
+          <li><a href="#leistungen">Unsere Leistungen</a></li>
+          <li><a href="#" data-todo="team">Unser Team</a></li>
+          <li><a href="#demo">Kontakt</a></li>
+          <li><a href="#" data-todo="rechner">Rechner</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-primary nav-cta" href="#demo" style="min-height: 44px; padding: 0 20px; font-size: 15px">Kostenlose Beratung</a><div style="display: flex; align-items: center; gap: 12px">
+        
+        <button class="burger" type="button" aria-controls="mobile-nav" aria-expanded="false" aria-label="Menü öffnen">
+          <svg class="ic ic-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+          <svg class="ic ic-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg>
+        </button>
+      </div>
+    </div>
+    <nav class="mnav" id="mobile-nav" hidden aria-label="Mobile Navigation">
+        <ul>
+          <li><a class="ml" href="./" aria-current="page">Home<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a></li>
+          <li><a class="ml" href="#leistungen">Unsere Leistungen<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a></li>
+          <li><a class="ml" href="#" data-todo="team">Unser Team<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a></li>
+          <li><a class="ml" href="#demo">Kontakt<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a></li>
+          <li><a class="ml" href="#" data-todo="rechner">Rechner<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a></li>
+        </ul>
+        <a class="btn btn-primary btn-lg" href="#demo">Kostenlose Beratung</a>
+      </nav>
+  </div>
+</header>
+
+<main id="inhalt">
+
+<!-- HERO -->
+<section class="hero t-dark" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow in" style="margin: 0">
+          <span class="dot"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h1M8 8v8M12 5v14M16 9v6M20 12h0"></path></svg></span>
+          KI-Telefonagenten der nächsten Generation
+        </p>
+        <h1 id="hero-title" class="in d1" style="width: 574px; height: 292px; text-align: start; font-size: 60px; line-height: 1.03; font-weight: 800; letter-spacing: -1.2px; font-style: normal; font-family: &quot;Schibsted Grotesk&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif">Die Zukunft der<br>Kunden-<br>kommunikation ist <span class="hl">intelligent.</span></h1>
+        <p class="lead in d2">Venitor entwickelt individuelle KI-Telefonagenten, die Unternehmen helfen, Kunden besser zu erreichen, Anfragen automatisch zu bearbeiten und wertvolle Zeit zu sparen.</p>
+        <div class="hero-ctas in d3">
+          <div class="cta-row">
+            <a class="btn btn-primary btn-lg" href="#demo">Kostenlose Beratung starten<svg class="ic arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+            <a class="btn btn-secondary btn-lg" href="#leistungen">Unsere Leistungen</a>
+          </div>
+          <a class="btn btn-ghost" href="#" data-todo="rechner">
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M8.5 7h7M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5h.01M8.5 18h.01M12 18h3.5"></path></svg>
+            Kostenlose Online-Berechnung
+          </a>
+        </div>
+      </div>
+
+      <div class="call-wrap in d4" aria-label="Beispiel: Ein KI-Agent von Venitor nimmt einen Anruf an und bucht einen Termin" role="img">
+        <div class="orb" aria-hidden="true">
+          <div class="orb-halo"></div>
+          <div class="orb-stage">
+            <img class="orb-base" src="assets/venitor-orb-960.webp" alt="">
+            <img class="orb-swirl orb-swirl-a" src="assets/venitor-orb-960.webp" alt="">
+            <img class="orb-swirl orb-swirl-b" src="assets/venitor-orb-960.webp" alt="">
+          </div>
+          <div class="orb-core"></div>
+          <div class="orb-shine"></div>
+          <div class="orb-flare"></div>
+          <span class="orb-p"></span><span class="orb-p"></span><span class="orb-p"></span><span class="orb-p"></span><span class="orb-p"></span><span class="orb-p"></span>
+        </div>
+        <div class="call">
+          <div class="call-top">
+            <div class="caller">
+              <div class="av"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg></div>
+              <div>
+                <div class="lbl">Eingehender Anruf · 23:14</div>
+                <div class="caller-name">Außerhalb der Öffnungszeiten</div>
+              </div>
+            </div>
+            <span class="live"><i></i>LIVE 01:42</span>
+          </div>
+          <div class="wave" aria-hidden="true">
+            <span style="height: 30%; animation-delay: -0.1s"></span><span style="height: 55%; animation-delay: -0.5s"></span><span style="height: 40%; animation-delay: -0.3s"></span><span style="height: 75%; animation-delay: -0.8s"></span><span style="height: 60%; animation-delay: -0.2s"></span><span style="height: 92%; animation-delay: -0.6s"></span><span style="height: 45%; animation-delay: -0.9s"></span><span style="height: 70%; animation-delay: -0.4s"></span><span style="height: 35%; animation-delay: -0.7s"></span><span style="height: 82%; animation-delay: -0.15s"></span><span style="height: 100%; animation-delay: -0.55s"></span><span style="height: 62%; animation-delay: -0.35s"></span><span style="height: 40%; animation-delay: -0.85s"></span><span style="height: 72%; animation-delay: -0.25s"></span><span style="height: 50%; animation-delay: -0.65s"></span><span style="height: 88%; animation-delay: -0.45s"></span><span style="height: 66%; animation-delay: -0.95s"></span><span style="height: 40%; animation-delay: -0.05s"></span><span style="height: 76%; animation-delay: -0.75s"></span><span style="height: 56%; animation-delay: -0.3s"></span><span style="height: 90%; animation-delay: -0.6s"></span><span style="height: 60%; animation-delay: -0.2s"></span><span style="height: 36%; animation-delay: -0.8s"></span><span style="height: 66%; animation-delay: -0.4s"></span><span style="height: 46%; animation-delay: -0.7s"></span><span style="height: 80%; animation-delay: -0.1s"></span><span style="height: 50%; animation-delay: -0.5s"></span><span style="height: 30%; animation-delay: -0.9s"></span><span style="height: 60%; animation-delay: -0.35s"></span><span style="height: 40%; animation-delay: -0.65s"></span><span style="height: 70%; animation-delay: -0.15s"></span><span style="height: 34%; animation-delay: -0.55s"></span>
+          </div>
+          <div class="wave-meta"><span class="lbl">Anrufer</span><span class="lbl" style="color: var(--signal-text)">KI-Agent spricht</span></div>
+          <div class="tx">
+            <div class="msg msg-c m1"><span class="lbl">Anrufer</span>Hallo, ich bräuchte einen Termin zur Kontrolle. Geht diese Woche noch etwas?</div>
+            <div class="msg msg-a m2"><span class="lbl">Venitor KI-Agent</span>Gern. Donnerstag um 9:30 Uhr oder Freitag um 14:00 Uhr ist frei. Was passt Ihnen besser?</div>
+            <div class="msg msg-c m3"><span class="lbl">Anrufer</span>Donnerstag, 9:30 Uhr.</div>
+            <div class="typing"><i></i><i></i><i></i></div>
+          </div>
+        </div>
+        <div class="chip chip-crm">
+          <div class="av"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg></div>
+          <div><strong>Anfrage erfasst</strong><span>Anliegen: Kontrolle</span></div>
+        </div>
+        <div class="chip chip-cal">
+          <div class="av"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18M9 15l2 2 4-4"></path></svg></div>
+          <div><strong>Termin eingetragen</strong><span>Do · 09:30 Uhr · Kalender</span></div>
+        </div>
+      </div>
+    </div>
+
+    <dl class="stats in d5">
+      <div class="stat"><dt class="sr">Erreichbarkeit</dt><dd class="stat-n" style="margin: 0">24/7</dd><dd class="stat-l" style="margin: 0">Erreichbarkeit</dd></div>
+      <div class="stat"><dt class="sr">Automatisierung</dt><dd class="stat-n" style="margin: 0"><span id="pct">100</span> %</dd><dd class="stat-l" style="margin: 0">automatisiert</dd></div>
+      <div class="stat"><dt class="sr">Technologie</dt><dd class="stat-n" style="margin: 0; color: var(--signal-text)">KI</dd><dd class="stat-l" style="margin: 0">Sprachassistent</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="sec t-light" aria-labelledby="problem-title">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="kicker">Das Problem</p>
+      <h2 id="problem-title" class="h2">Viele Unternehmen verlieren täglich Kunden.</h2>
+      <p class="lead">Verpasste Anrufe, lange Wartezeiten und wiederkehrende Aufgaben kosten Zeit und Umsatz.</p>
+    </div>
+    <div class="cards">
+      <article class="card rv">
+        <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path><path d="M16 2l6 6M22 2l-6 6"></path></svg></div>
+        <h3>Verpasste Anrufe</h3>
+        <p>Während dein Team beschäftigt ist, gehen wertvolle Kundenkontakte verloren.</p>
+      </article>
+      <article class="card rv">
+        <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 22h14M5 2h14M17 22v-4.2a2 2 0 0 0-.6-1.4L12 12l-4.4 4.4a2 2 0 0 0-.6 1.4V22M7 2v4.2a2 2 0 0 0 .6 1.4L12 12l4.4-4.4a2 2 0 0 0 .6-1.4V2"></path></svg></div>
+        <h3>Zeitverschwendung</h3>
+        <p>Viele Telefonate drehen sich um dieselben, einfachen Fragen.</p>
+      </article>
+      <article class="card rv">
+        <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M15 8.6a4 4 0 1 0 0 6.8M7.5 10.6h5M7.5 13.4h5"></path></svg></div>
+        <h3>Hohe Kosten</h3>
+        <p>Zusätzliches Personal nur für die Telefonannahme ist teuer und oft ineffizient.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- LÖSUNG -->
+<section class="sec t-dark" aria-labelledby="solution-title">
+  <div class="wrap">
+    <div class="split">
+      <div class="sec-head rv">
+        <p class="kicker">Die Lösung</p>
+        <h2 id="solution-title" class="h2">Dein intelligenter KI-Mitarbeiter.</h2>
+        <p class="lead">Venitor erstellt einen KI-Telefonagenten, der speziell auf dein Unternehmen trainiert wird.</p>
+        <div class="cta-row" style="margin-top: 12px">
+          <a class="btn btn-primary" href="#demo">Demo erstellen<svg class="ic arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <a class="btn btn-ghost" href="#demo">Kostenlose Beratung</a>
+        </div>
+      </div>
+      <div class="cards cards-2">
+        <article class="card rv">
+          <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.4 7.6L3 21l1.4-5.2A8.5 8.5 0 1 1 21 12z"></path><path d="M9 11v2M12 9.5v5M15 11v2"></path></svg></div>
+          <h3>Natürliche Gespräche</h3>
+          <p>Die KI versteht Fragen, führt echte Gespräche und reagiert individuell auf jeden Anrufer.</p>
+        </article>
+        <article class="card rv">
+          <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18M9 15l2 2 4-4"></path></svg></div>
+          <h3>Automatische Termine</h3>
+          <p>Der Agent vereinbart Termine direkt im Gespräch und entlastet dein Team.</p>
+        </article>
+        <article class="card rv">
+          <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"></path></svg></div>
+          <h3>Dein Unternehmenswissen</h3>
+          <p>Website, Leistungen und Informationen werden zur Wissensbasis deiner KI.</p>
+        </article>
+        <article class="card rv">
+          <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
+          <h3>Rund um die Uhr</h3>
+          <p>Deine Kunden erhalten jederzeit Antworten – auch abends, am Wochenende und an Feiertagen.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANCHEN -->
+<section class="sec t-light" aria-labelledby="ind-title">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="kicker">Branchen</p>
+      <h2 id="ind-title" class="h2">Was kann dein KI-Agent übernehmen?</h2>
+      <p class="lead">Jeder Agent wird auf die Abläufe deiner Branche zugeschnitten.</p>
+    </div>
+    <div class="ind">
+      <article class="ind-item rv">
+        <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3H5v6a5 5 0 0 0 10 0V3h-1"></path><path d="M10 14v1a5 5 0 0 0 10 0v-2"></path><circle cx="20" cy="11" r="2"></circle></svg></div>
+        <div><h3>Arztpraxen</h3><p>Terminvergabe, Patienteninformationen, Erinnerungen und Vorqualifizierung.</p></div>
+      </article>
+      <article class="ind-item rv">
+        <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"></path></svg></div>
+        <div><h3>Handwerker</h3><p>Anfragen aufnehmen, Schäden erfassen und Rückrufe organisieren.</p></div>
+      </article>
+      <article class="ind-item rv">
+        <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg></div>
+        <div><h3>Immobilien</h3><p>Besichtigungen planen und Interessenten qualifizieren.</p></div>
+      </article>
+      <article class="ind-item rv">
+        <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M7 21h10M4 7h16M4 7l-2.5 7a3 3 0 0 0 5 0zM20 7l-2.5 7a3 3 0 0 0 5 0z"></path></svg></div>
+        <div><h3>Kanzleien</h3><p>Mandantenanfragen beantworten und Termine koordinieren.</p></div>
+      </article>
+      <article class="ind-item rv">
+        <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17H3v-5l2.2-5h13.6L21 12v5h-2M3 12h18M9.5 17h5"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg></div>
+        <div><h3>Autohäuser</h3><p>Probefahrten buchen und Serviceanfragen bearbeiten.</p></div>
+      </article>
+      <article class="ind-item rv">
+        <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.5"></rect><path d="M9 21v-4h6v4M8.5 7h.01M12 7h.01M15.5 7h.01M8.5 11h.01M12 11h.01M15.5 11h.01"></path></svg></div>
+        <div><h3>Dienstleister</h3><p>Leads aufnehmen und Kunden automatisch betreuen.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- LEISTUNGEN -->
+<section class="sec t-dark" id="leistungen" aria-labelledby="svc-title">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="kicker">Leistungen</p>
+      <h2 id="svc-title" class="h2">Unsere Leistungen</h2>
+      <p class="lead">Wir sind dein Partner für KI-Kommunikation – und unterstützen dich auch bei Website und Marketing.</p>
+    </div>
+    <div class="cards">
+      <article class="card svc svc-feat rv">
+        <div class="svc-top">
+          <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path><path d="M15 5v4M18 3.5v7M21 6v2"></path></svg></div>
+          <span class="tag">Kernleistung</span>
+        </div>
+        <h3>KI-Telefonagenten</h3>
+        <p>Individuelle KI-Agenten für die automatisierte Kundenkommunikation.</p>
+      </article>
+      <article class="card svc rv">
+        <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"></rect><path d="M8 21h8M12 17v4M2 8h20"></path></svg></div>
+        <h3>Websites</h3>
+        <p>Moderne, conversion-orientierte Websites für Unternehmen.</p>
+      </article>
+      <article class="card svc rv">
+        <div class="tile"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M7 15l4-4 3 3 6-7"></path><path d="M16 7h4v4"></path></svg></div>
+        <h3>Marketing</h3>
+        <p>Digitale Lösungen, um neue Kunden zu gewinnen und bestehende zu betreuen.</p>
+      </article>
+    </div>
+    <div class="sec-foot rv">
+      <a class="btn btn-secondary" href="#leistungen">Überblick zu unseren Leistungen<svg class="ic arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      <a class="btn btn-ghost" href="#demo">Kostenlose Beratung</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROZESS -->
+<section class="sec t-light" aria-labelledby="proc-title">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="kicker">Ablauf</p>
+      <h2 id="proc-title" class="h2">So funktioniert Venitor</h2>
+      <p class="lead">Vom ersten Gespräch bis zum laufenden Agenten – in vier klaren Schritten.</p>
+    </div>
+    <ol class="steps">
+      <li class="step rv">
+        <span class="step-n" aria-hidden="true">01</span>
+        <h3>Analyse</h3>
+        <p>Wir analysieren dein Unternehmen und deine Kundenkommunikation.</p>
+      </li>
+      <li class="step rv">
+        <span class="step-n" aria-hidden="true">02</span>
+        <h3>Erstellung</h3>
+        <p>Wir bauen deinen individuellen KI-Agenten.</p>
+      </li>
+      <li class="step rv">
+        <span class="step-n" aria-hidden="true">03</span>
+        <h3>Integration</h3>
+        <p>Anbindung an Telefon, Kalender und deine bestehenden Systeme.</p>
+      </li>
+      <li class="step rv">
+        <span class="step-n" aria-hidden="true">04</span>
+        <h3>Optimierung</h3>
+        <p>Wir verbessern deinen Agenten kontinuierlich.</p>
+      </li>
+    </ol>
+    <div class="sec-foot rv" style="margin-top: 64px">
+      <a class="btn btn-primary" href="#demo">Mit der Analyse starten<svg class="ic arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      <span style="color: var(--muted)">Das Erstgespräch ist kostenlos.</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec t-dark" aria-labelledby="cta-title">
+  <div class="wrap">
+    <div class="band rv">
+      <div class="band-wave" aria-hidden="true">
+        <span style="height: 30%"></span><span style="height: 70%; animation-delay: -0.3s"></span><span style="height: 100%; animation-delay: -0.6s"></span><span style="height: 55%; animation-delay: -0.2s"></span><span style="height: 85%; animation-delay: -0.8s"></span><span style="height: 40%; animation-delay: -0.4s"></span><span style="height: 65%; animation-delay: -0.1s"></span>
+      </div>
+      <h2 id="cta-title" class="h2">Bereit für die Zukunft?</h2>
+      <p>Automatisiere deine Kundenkommunikation mit Venitor.</p>
+      <div class="cta-row">
+        <a class="btn btn-onsignal btn-lg" href="#demo">Jetzt Beratung anfragen<svg class="ic arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <a class="btn btn-ghost" href="#" data-todo="rechner">Kostenlose Online-Berechnung</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec t-light" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="faq-grid">
+      <div class="faq-aside rv">
+        <p class="kicker">FAQ</p>
+        <h2 id="faq-title" class="h2">Häufig gestellte Fragen</h2>
+        <p class="lead">Alles Wissenswerte über KI-Telefonagenten und deine kostenlose Demo.</p>
+        <div class="faq-help">
+          <strong>Deine Frage ist nicht dabei?</strong>
+          <p>Wir beantworten sie gern im persönlichen Gespräch.</p>
+          <a class="btn btn-primary" href="#demo">Kostenlose Beratung<svg class="ic arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        </div>
+      </div>
+      <div class="faq-list">
+        <details class="faq" open="">
+          <summary>Was ist ein KI-Telefonagent?<span class="pm" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+          <div class="faq-a"><p>Ein KI-Telefonagent ist ein digitaler Assistent, der die Anrufe deines Unternehmens entgegennimmt. Er versteht gesprochene Sprache, beantwortet Fragen auf Basis deiner Unternehmensinformationen und erledigt Aufgaben wie die Terminvergabe – im natürlichen Gespräch.</p></div>
+        </details>
+        <details class="faq">
+          <summary>Ersetzt die KI meine Mitarbeiter?<span class="pm" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+          <div class="faq-a"><p>Nein. Der Agent übernimmt wiederkehrende Anrufe und Standardfragen. Dein Team gewinnt dadurch Zeit für Aufgaben, bei denen persönliche Beratung zählt. Anliegen, die ein Mensch klären sollte, nimmt der Agent auf und organisiert einen Rückruf.</p></div>
+        </details>
+        <details class="faq">
+          <summary>Wie wird die KI auf mein Unternehmen angepasst?<span class="pm" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+          <div class="faq-a"><p>Wir analysieren deine Website, deine Leistungen und typische Kundenanfragen. Daraus entsteht die Wissensbasis deines Agenten. Begrüßung, Tonfall und Gesprächsabläufe legen wir gemeinsam mit dir fest.</p></div>
+        </details>
+        <details class="faq">
+          <summary>Welche Aufgaben kann die KI übernehmen?<span class="pm" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+          <div class="faq-a"><p>Zum Beispiel Fragen zu Leistungen und Öffnungszeiten beantworten, Termine vereinbaren, Anfragen aufnehmen und qualifizieren sowie Rückrufe organisieren. Welche Aufgaben für dich sinnvoll sind, klären wir im Beratungsgespräch.</p></div>
+        </details>
+        <details class="faq">
+          <summary>Kann die KI Termine automatisch vereinbaren?<span class="pm" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+          <div class="faq-a"><p>Ja. Über die Anbindung an deinen Kalender prüft der Agent freie Zeiten und trägt Termine direkt im Gespräch ein. Welche Kalendersysteme wir anbinden, klären wir in der Analyse.</p></div>
+        </details>
+        <details class="faq">
+          <summary>Was kostet ein KI-Telefonagent?<span class="pm" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+          <div class="faq-a"><p>Der Preis hängt vom Umfang ab – etwa davon, wie viele Anrufe der Agent führt und welche Systeme angebunden werden. Eine erste Einschätzung erhältst du mit unserer <a href="#" data-todo="rechner">kostenlosen Online-Berechnung</a>, ein verbindliches Angebot nach der Beratung.</p></div>
+        </details>
+        <details class="faq">
+          <summary>Wie schnell kann mein KI-Agent starten?<span class="pm" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+          <div class="faq-a"><p>Das hängt davon ab, wie viele Abläufe und Systeme eingebunden werden. In der Regel ist ein Agent nach [ZEITRAUM] einsatzbereit. Nach der Analyse erhältst du einen konkreten Zeitplan.</p></div>
+        </details>
+        <details class="faq">
+          <summary>Kann ich die KI kostenlos testen?<span class="pm" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+          <div class="faq-a"><p>Ja. Wir erstellen auf Basis deiner Website eine kostenlose Demo-Version und senden dir alle Informationen per E-Mail. So hörst du, wie dein Agent klingt, bevor du dich entscheidest.</p></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="sec t-dark" id="demo" aria-labelledby="demo-title">
+  <div class="wrap">
+    <div class="demo rv">
+      <div class="demo-copy">
+        <span class="badge"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"></rect><path d="M12 4v4M9.5 14h.01M14.5 14h.01M2 13v2M22 13v2"></path></svg>Venitor KI-Assistent</span>
+        <h2 id="demo-title" class="h2">Teste deinen eigenen KI-Agenten kostenlos.</h2>
+        <p class="lead">Erhalte eine individuelle Demo-Version auf Basis deiner Website. Wir erstellen deinen Demobot und senden dir anschließend alle Informationen per E-Mail.</p>
+        <ol class="demo-steps">
+          <li><span class="n">1</span>Website-Adresse eingeben</li>
+          <li><span class="n">2</span>Wir erstellen deinen Demobot</li>
+          <li><span class="n">3</span>Alle Infos kommen per E-Mail</li>
+        </ol>
+      </div>
+      <form class="form" action="#" aria-label="Kostenlose Demo anfordern">
+        <div class="field">
+          <label for="demo-url">Deine Website</label>
+          <input id="demo-url" name="website" type="url" inputmode="url" autocomplete="url" placeholder="www.dein-unternehmen.de">
+        </div>
+        <div class="field">
+          <label for="demo-mail">Deine E-Mail-Adresse</label>
+          <input id="demo-mail" name="email" type="email" autocomplete="email" placeholder="name@unternehmen.de">
+        </div>
+        <button class="btn btn-primary btn-demo" type="submit">Demo erstellen<svg class="ic arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+        <p class="form-note">Kostenlos · Ergebnis per E-Mail</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="ftr t-dark">
+  <div class="wrap">
+    <div class="ftr-grid">
+      <div class="ftr-brand">
+        <a class="brand" href="./" aria-label="Venitor – zur Startseite">
+          <span class="brand-orb"><img src="assets/venitor-orb-128.webp" alt="" width="36" height="36"></span>
+          Venitor
+        </a>
+        <p>Individuelle KI-Telefonagenten, Websites und Marketing für Unternehmen.</p>
+      </div>
+      <nav aria-labelledby="f-nav">
+        <h2 id="f-nav">Navigation</h2>
+        <ul>
+          <li><a href="./">Home</a></li>
+          <li><a href="#leistungen">Unsere Leistungen</a></li>
+          <li><a href="#" data-todo="team">Unser Team</a></li>
+          <li><a href="#demo">Kontakt</a></li>
+          <li><a href="#" data-todo="rechner">Rechner</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="f-legal">
+        <h2 id="f-legal">Rechtliches</h2>
+        <ul>
+          <li><a href="#" data-todo="datenschutz">Datenschutz</a></li>
+          <li><a href="#" data-todo="impressum">Impressum</a></li>
+          <li><a href="#" data-todo="widerrufsrecht">Widerrufsrecht</a></li>
+          <li><a href="#" data-todo="agb">AGB</a></li>
+        </ul>
+      </nav>
+      <div class="ftr-cta">
+        <strong>Bereit für deinen KI-Agenten?</strong>
+        <a class="btn btn-primary" href="#demo">Kostenlose Beratung<svg class="ic arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <a class="btn btn-ghost" href="#demo">Demo erstellen</a>
+      </div>
+    </div>
+    <div class="ftr-bottom">
+      <span>© 2025 – 2026 Venitor</span>
+      <span>KI-Telefonagenten für Unternehmen</span>
+    </div>
+  </div>
+</footer>
+</div>
+<script>
+(function(){
+  var btn=document.querySelector('.burger'), nav=document.getElementById('mobile-nav');
+  function setOpen(o){btn.setAttribute('aria-expanded',o?'true':'false');btn.setAttribute('aria-label',o?'Menü schließen':'Menü öffnen');nav.hidden=!o;}
+  btn.addEventListener('click',function(){setOpen(nav.hidden);});
+  nav.addEventListener('click',function(e){if(e.target.closest('a'))setOpen(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!nav.hidden){setOpen(false);btn.focus();}});
+  window.addEventListener('resize',function(){if(window.innerWidth>1040)setOpen(false);});
+  document.querySelectorAll('a[data-todo]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();});a.title='Seite folgt';});
+  var form=document.querySelector('.form');
+  form.addEventListener('submit',function(e){e.preventDefault();var b=form.querySelector('button');b.textContent='Danke! (Testversion – noch kein Versand)';b.disabled=true;});
+  var el=document.getElementById('pct');
+  if(el && !(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
+    el.textContent='0';var t0=performance.now();
+    (function step(t){var p=Math.max(0,Math.min(1,(t-t0-500)/1400));el.textContent=Math.round((1-Math.pow(1-p,3))*100);if(p<1)requestAnimationFrame(step);})(t0);
+  }
+})();
+</script>
+</body>
+</html>
